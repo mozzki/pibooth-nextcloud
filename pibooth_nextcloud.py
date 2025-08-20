@@ -163,7 +163,7 @@ def state_processing_exit(app, cfg, win):
     app.nextcloud.current_photo_link = photo_link
 
 @pibooth.hookimpl
-def state_finish_do(app, cfg, win):
+def state_finish_validate(app, cfg, win):
     """Upload picture to Nextcloud album"""
     if app.nextcloud.printQrCode:
         LOGGER.info("Create QrCode with URL to shared photo (%s)..." % app.nextcloud.current_photo_link)
