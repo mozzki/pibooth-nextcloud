@@ -76,6 +76,7 @@ def pibooth_startup(app, cfg):
     app.nextcloud.useSynchronize = cfg.getboolean(SECTION, 'useSynchronize')
     app.nextcloud.printQrCode = cfg.getboolean(SECTION, 'printQrCode')
     app.nextcloud.local_rep = cfg.get('GENERAL', 'directory')
+    app.nextcloud.current_photo_link = None
 
     LOGGER.info("Synchronize is (%r)...",app.nextcloud.useSynchronize)
 
@@ -163,9 +164,13 @@ def state_processing_exit(app, cfg, win):
     app.nextcloud.current_photo_link = photo_link
 
 @pibooth.hookimpl
-def state_finish_exit(app, cfg, win):
+def state_wait_enter(app, cfg, win):
     """Upload picture to Nextcloud album"""
     if app.nextcloud.printQrCode:
+        if not app.nextcloud.current_photo_link:
+            LOGGER.info("No current photo link available to create QR code.")
+            return
+
         LOGGER.info("Create QrCode with URL to shared photo (%s)..." % app.nextcloud.current_photo_link)
 
         qr = qrcode.QRCode(version=1,
