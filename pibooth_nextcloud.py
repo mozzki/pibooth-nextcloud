@@ -184,11 +184,11 @@ def state_wait_enter(app, cfg, win):
 
         qr_image = pygame.image.fromstring(image.tobytes(), image.size, image.mode)
 
-        # win_rect = win.get_rect()
-        # qr_rect = qr_image.get_rect()
-        # win.surface.blit(app.nextcloud.qr_image, (win_rect.width - qr_rect.width - 10,
-        #                                   win_rect.height - qr_rect.height - 90))
-        win.surface.blit(qr_image,(10, 10))
+        win_rect = win.get_rect()
+        qr_rect = qr_image.get_rect()
+        win.surface.blit(qr_image, (win_rect.width - qr_rect.width - 10,
+                                    win_rect.height - qr_rect.height - 90))
+        # win.surface.blit(qr_image,(10, 10))
 
 ###########################################################################
 # Class
