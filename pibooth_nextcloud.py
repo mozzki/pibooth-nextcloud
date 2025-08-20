@@ -100,7 +100,7 @@ def pibooth_startup(app, cfg):
     else:
         app.nextcloud_link_gallery="Not connected"
 
-
+    """
     # Create QrCode image with URL to Gallery on Nextcloud
     LOGGER.info("Create QrCode with URL Link Gallery (%s)...",app.nextcloud_link)
 
@@ -114,6 +114,7 @@ def pibooth_startup(app, cfg):
     image.save(app.nextcloud.local_rep + '/QRCODE.png' ,"PNG")
 
     app.nextcloud.qr_image = pygame.image.fromstring(image.tobytes(), image.size, image.mode)
+    """
 
 									
 									
@@ -128,13 +129,14 @@ def state_wait_enter(cfg, app, win):
     """
     Display the QR Code 
     """
+    """
     if app.nextcloud.printQrCode:
         win_rect = win.get_rect()
         qr_rect = app.nextcloud.qr_image.get_rect()
         #win.surface.blit(app.nextcloud.qr_image, (win_rect.width - qr_rect.width - 10,
         #                                   win_rect.height - qr_rect.height - 90))
         win.surface.blit(app.nextcloud.qr_image,(10, 10))
-
+    """
 
 
 @pibooth.hookimpl
