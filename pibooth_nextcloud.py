@@ -11,8 +11,10 @@ import os
 import traceback
 import owncloud
 import qrcode
+from qrcode.image.styles.moduledrawers.pil import RoundedModuleDrawer
+from qrcode.image.styledpil import StyledPilImage
 import pygame
-from PIL import Image, ImageDraw, ImageFont
+# from PIL import Image, ImageDraw, ImageFont
 
 from urllib.request import Request, urlopen
 from urllib.error import URLError, HTTPError
@@ -179,7 +181,8 @@ def state_wait_enter(app, cfg, win):
                         border=2)
         qr.add_data(app.nextcloud.current_photo_link)
         qr.make(fit=True)
-        image = qr.make_image(fill_color=(247, 180, 244), back_color=(234, 56, 154)).convert('RGB')
+        image = qr.make_image(fill_color=(247, 180, 244), back_color=(234, 56, 154), 
+                              image_factory=StyledPilImage, color_mask=RoundedModuleDrawer()).convert('RGB')
 
         qr_image = pygame.image.fromstring(image.tobytes(), image.size, image.mode)
 
@@ -187,6 +190,8 @@ def state_wait_enter(app, cfg, win):
         qr_rect = qr_image.get_rect()
         win.surface.blit(qr_image, ((win_rect.width - qr_rect.width) * 0.20,
                                     win_rect.height * 0.10))
+        
+
         # win.surface.blit(qr_image,(10, 10))
 
 ###########################################################################
