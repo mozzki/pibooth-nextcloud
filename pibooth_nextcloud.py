@@ -189,7 +189,6 @@ def state_wait_enter(app, cfg, win):
         qr_rect = qr_image.get_rect()
         win.surface.blit(qr_image, ((win_rect.width - qr_rect.width) * 0.20,
                                     win_rect.height * 0.10))
-        
 
         # win.surface.blit(qr_image,(10, 10))
 
