@@ -241,6 +241,7 @@ class NextcloudUpload(object):
 
     def create_photo_share_link(self, rep_photos_nextcloud, album_name, photo):
         LOGGER.info("Nextcloud Create Share Link   (%s)", self.rep_photos_nextcloud + album_name + photo)
+        FileShare = None
 
         try:
             FileShare = self.oc.get_shares(self.rep_photos_nextcloud + album_name + photo)
