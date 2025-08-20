@@ -152,7 +152,10 @@ def state_processing_exit(app, cfg):
     else:
             LOGGER.info("Upload Photo  (%s)...",name)
             app.nextcloud.upload_photos(name, app.nextcloud.rep_photos_nextcloud +  nextcloud_name + '/' + os.path.basename(name), activate_state)
-
+    
+    LOGGER.info("Create Photo Share Link...")
+    photo_link = app.nextcloud.create_photo_share_link(app.nextcloud.rep_photos_nextcloud , app.nextcloud.album_name, name)
+    LOGGER.info("Share remote Link Public (%s)...", photo_link)
 
 ###########################################################################
 # Class
@@ -236,7 +239,30 @@ class NextcloudUpload(object):
         else:
             LOGGER.info("Successfully created the directory (%s) ", self.rep_photos_nextcloud + album_name)
 
+    def create_photo_share_link(self, rep_photos_nextcloud, album_name, photo):
+        LOGGER.info("Nextcloud Create Share Link   (%s)", self.rep_photos_nextcloud + album_name + photo)
 
+        try:
+            FileShare = self.oc.get_shares(self.rep_photos_nextcloud + album_name + photo)
+        except:
+            LOGGER.warning("Problem to get_shares info for  (%s)", self.rep_photos_nextcloud + album_name + photo)
+
+        if not FileShare:
+           LOGGER.info("No Share Link ")
+           try:
+               link_info = self.oc.share_file_with_link(self.rep_photos_nextcloud + album_name + photo, public_upload=False )
+           except:
+               LOGGER.warning("Problem to create Share Link for  (%s)", self.rep_photos_nextcloud + album_name + photo)
+               link=""
+           else:
+               link=link_info.get_link()
+        else:
+           LOGGER.info("Share Link Already Exist (%s) ",self.rep_photos_nextcloud + album_name + photo)
+           """" possibility to have multiple Share link
+           """
+           for x in range(len(FileShare)):
+               link=FileShare[x].get_link()
+        return link
 
     def create_share_link(self, rep_photos_nextcloud, album_name):
 
