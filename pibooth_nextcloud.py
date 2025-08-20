@@ -179,8 +179,7 @@ def state_wait_enter(app, cfg, win):
                         border=2)
         qr.add_data(app.nextcloud.current_photo_link)
         qr.make(fit=True)
-        image = qr.make_image(fill_color="black", back_color="white").convert('RGB')
-        # image.save(app.nextcloud.local_rep + '/QRCODE.png' ,"PNG")
+        image = qr.make_image(fill_color=(247, 180, 244), back_color=(234, 56, 154)).convert('RGB')
 
         qr_image = pygame.image.fromstring(image.tobytes(), image.size, image.mode)
 
