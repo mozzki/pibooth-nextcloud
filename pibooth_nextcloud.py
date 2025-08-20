@@ -154,7 +154,8 @@ def state_processing_exit(app, cfg):
             app.nextcloud.upload_photos(name, app.nextcloud.rep_photos_nextcloud +  nextcloud_name + '/' + os.path.basename(name), activate_state)
     
     LOGGER.info("Create Photo Share Link...")
-    photo_link = app.nextcloud.create_photo_share_link(app.nextcloud.rep_photos_nextcloud , app.nextcloud.album_name, name)
+    photo_filename = name.split('/')[-1]  # Get the file name from the path
+    photo_link = app.nextcloud.create_photo_share_link(app.nextcloud.rep_photos_nextcloud , app.nextcloud.album_name, photo_filename)
     LOGGER.info("Share remote Link Public (%s)...", photo_link)
 
 ###########################################################################
@@ -335,7 +336,6 @@ class NextcloudUpload(object):
             USER_NC= self.nuser
             PASS_NC = self.npassword
             LOCAL_PATH_NC= local_rep
-            # REMOTE_PATH_NC=self.nhost + "/remote.php/webdav" + rep_photos_nextcloud + album_name
             nextcloudcmd = "nextcloudcmd" + " -u " + USER_NC + " -p " + PASS_NC + " -s " + " --path " + rep_photos_nextcloud + album_name + " " + LOCAL_PATH_NC + " " + self.nhost
             LOGGER.info("Os Command   (%s)", nextcloudcmd)
             os.system(nextcloudcmd)
