@@ -309,7 +309,7 @@ class NextcloudUpload(object):
             PASS_NC = self.npassword
             LOCAL_PATH_NC= local_rep
             # REMOTE_PATH_NC=self.nhost + "/remote.php/webdav" + rep_photos_nextcloud + album_name
-            nextcloudcmd = "nextcloudcmd" + " -u " + USER_NC + " -p " + PASS_NC + " -s " + LOCAL_PATH_NC + " " + self.nhost + " --path " + rep_photos_nextcloud + album_name
+            nextcloudcmd = "nextcloudcmd" + " -u " + USER_NC + " -p " + PASS_NC + " -s " + " --path " + rep_photos_nextcloud + album_name + " " + LOCAL_PATH_NC + " " + self.nhost
             LOGGER.info("Os Command   (%s)", nextcloudcmd)
             os.system(nextcloudcmd)
 
