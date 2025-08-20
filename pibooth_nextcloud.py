@@ -138,7 +138,7 @@ def state_wait_enter(cfg, app, win):
 
 
 @pibooth.hookimpl
-def state_processing_exit(app, cfg):
+def state_processing_exit(app, cfg, win):
     """Upload picture to Nextcloud album"""
     name = app.previous_picture_file
     rep_photos_nextcloud = app.nextcloud.rep_photos_nextcloud
@@ -157,6 +157,26 @@ def state_processing_exit(app, cfg):
     photo_filename = name.split('/')[-1]  # Get the file name from the path
     photo_link = app.nextcloud.create_photo_share_link(app.nextcloud.rep_photos_nextcloud , app.nextcloud.album_name, photo_filename)
     LOGGER.info("Share remote Link Public (%s)...", photo_link)
+
+    if app.nextcloud.printQrCode:
+        LOGGER.info("Create QrCode with URL to shared photo (%s)..." % photo_link)
+
+        qr = qrcode.QRCode(version=1,
+                        error_correction=qrcode.constants.ERROR_CORRECT_L,
+                        box_size=5,
+                        border=2)
+        qr.add_data(app.nextcloud_link)
+        qr.make(fit=True)
+        image = qr.make_image(fill_color="black", back_color="white").convert('RGB')
+        # image.save(app.nextcloud.local_rep + '/QRCODE.png' ,"PNG")
+
+        qr_image = pygame.image.fromstring(image.tobytes(), image.size, image.mode)
+
+        # win_rect = win.get_rect()
+        # qr_rect = qr_image.get_rect()
+        # win.surface.blit(app.nextcloud.qr_image, (win_rect.width - qr_rect.width - 10,
+        #                                   win_rect.height - qr_rect.height - 90))
+        win.surface.blit(qr_image,(10, 10))
 
 ###########################################################################
 # Class
