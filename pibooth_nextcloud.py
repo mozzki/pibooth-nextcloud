@@ -243,23 +243,24 @@ class NextcloudUpload(object):
     def create_photo_share_link(self, rep_photos_nextcloud, album_name, photo):
         LOGGER.info("Nextcloud Create Share Link   (%s)", self.rep_photos_nextcloud + album_name + photo)
         FileShare = None
+        photo_path = album_name + '/' + photo
 
         try:
-            FileShare = self.oc.get_shares(self.rep_photos_nextcloud + album_name + photo)
+            FileShare = self.oc.get_shares(self.rep_photos_nextcloud + photo_path)
         except:
-            LOGGER.warning("Problem to get_shares info for  (%s)", self.rep_photos_nextcloud + album_name + photo)
+            LOGGER.warning("Problem to get_shares info for  (%s)", self.rep_photos_nextcloud + photo_path)
 
         if not FileShare:
            LOGGER.info("No Share Link ")
            try:
-               link_info = self.oc.share_file_with_link(self.rep_photos_nextcloud + album_name + photo, public_upload=False )
+               link_info = self.oc.share_file_with_link(self.rep_photos_nextcloud + photo_path, public_upload=False )
            except:
-               LOGGER.warning("Problem to create Share Link for  (%s)", self.rep_photos_nextcloud + album_name + photo)
+               LOGGER.warning("Problem to create Share Link for  (%s)", self.rep_photos_nextcloud + photo_path)
                link=""
            else:
                link=link_info.get_link()
         else:
-           LOGGER.info("Share Link Already Exist (%s) ",self.rep_photos_nextcloud + album_name + photo)
+           LOGGER.info("Share Link Already Exist (%s) ",self.rep_photos_nextcloud + photo_path)
            """" possibility to have multiple Share link
            """
            for x in range(len(FileShare)):
