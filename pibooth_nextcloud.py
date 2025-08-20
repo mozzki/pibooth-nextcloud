@@ -2,17 +2,17 @@
 
 """Pibooth plugin for Nextcloud upload."""
 
-import json
+# import json
 import os.path
 
 import requests
 
 import os
-import traceback
+# import traceback
 import owncloud
 import qrcode
-from qrcode.image.styles.moduledrawers.pil import RoundedModuleDrawer
-from qrcode.image.styledpil import StyledPilImage
+# from qrcode.image.styles.moduledrawers.pil import RoundedModuleDrawer
+# from qrcode.image.styledpil import StyledPilImage
 import pygame
 # from PIL import Image, ImageDraw, ImageFont
 
@@ -181,8 +181,7 @@ def state_wait_enter(app, cfg, win):
                         border=2)
         qr.add_data(app.nextcloud.current_photo_link)
         qr.make(fit=True)
-        image = qr.make_image(fill_color=(247, 180, 244), back_color=(234, 56, 154), 
-                              image_factory=StyledPilImage, module_drawer=RoundedModuleDrawer()).convert('RGB')
+        image = qr.make_image(fill_color=(247, 180, 244), back_color=(234, 56, 154)).convert('RGB')
 
         qr_image = pygame.image.fromstring(image.tobytes(), image.size, image.mode)
 
