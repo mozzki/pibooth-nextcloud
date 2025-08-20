@@ -245,14 +245,14 @@ class NextcloudUpload(object):
 
         LOGGER.info("Nextcloud Create Share Link   (%s)", self.rep_photos_nextcloud + photo_path)
 
-        try:
-            link_info = self.oc.share_file_with_link(self.rep_photos_nextcloud + photo_path, public_upload=False)
-            link = link_info.get_link()
-        except Exception as e:
-            LOGGER.warning("Problem to create Share Link for  (%s): %s", self.rep_photos_nextcloud + photo_path, str(e))
-            link = ""
-        else:
-            link = link_info.get_link()
+        # try:
+        link_info = self.oc.share_file_with_link(self.rep_photos_nextcloud + photo_path, public_upload=False)
+        link = link_info.get_link()
+        # except Exception as e:
+        #    LOGGER.warning("Problem to create Share Link for  (%s): %s", self.rep_photos_nextcloud + photo_path, str(e))
+        #    link = ""
+        # else:
+        #    link = link_info.get_link()
 
         return link
 
