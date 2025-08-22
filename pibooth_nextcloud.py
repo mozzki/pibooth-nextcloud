@@ -354,6 +354,6 @@ class NextcloudUpload(object):
             #Syncho repertoire nextcloud / upload
             user_nc = self.nuser
             pass_nc = self.npassword
-            nextcloudcmd = f"nextcloudcmd -u {user_nc} -p {pass_nc} -s --path {rep_photos_nextcloud} {album_name} {local_rep} {self.nhost}"
+            nextcloudcmd = f"nextcloudcmd -u {user_nc} -p {pass_nc} -s --path {rep_photos_nextcloud}{album_name} {local_rep} {self.nhost}"
             LOGGER.info("Run OS Command (%s)", nextcloudcmd)
             os.system(nextcloudcmd)
