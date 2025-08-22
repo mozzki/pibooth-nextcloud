@@ -116,7 +116,7 @@ def pibooth_startup(app, cfg):
     """
 
 @pibooth.hookimpl
-def state_processing_exit(app, _, __):
+def state_processing_exit(app, cfg, win):
     """Upload picture to Nextcloud album"""
     name = app.previous_picture_file
     rep_photos_nextcloud = app.nextcloud.rep_photos_nextcloud
@@ -140,7 +140,7 @@ def state_processing_exit(app, _, __):
     app.nextcloud.current_photo_link = photo_link
 
 @pibooth.hookimpl
-def state_wait_enter(app, _, win):
+def state_wait_enter(app, cfg, win):
     """Create and display QR Code with URL to shared photo
     :param app: application instance
     :param win: graphical window instance
